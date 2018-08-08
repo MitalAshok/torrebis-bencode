@@ -4,8 +4,9 @@
 
 import os
 
+
 # import uuid; uuid.uuid4().hex. Should never change.
-include_guard = b'TORREBIS_BENCODE_TORREBIS_BENCODE_H_3440b2d414bd44d2a62019070eafc1eb'
+include_guard = b'TORREBIS_BENCODE_TORREBIS_BENCODE_H_3440b2d414bd44d2a62019070eafc1eb_'
 
 include_guard_lines = (
     b'#ifndef ' + include_guard + b'\n',
@@ -15,8 +16,7 @@ include_guard_lines = (
 
 repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 include_root = os.path.join(repo_root, 'include', '')
-src_root = os.path.join(repo_root, 'src', '')
-src = os.path.join(src_root, 'torrebis_bencode.cpp')
+src = os.path.join(repo_root, 'include', 'torrebis_bencode', 'torrebis_bencode.h')
 single_include = os.path.join(repo_root, 'single_include', 'torrebis_bencode.h')
 
 
