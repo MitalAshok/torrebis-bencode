@@ -9,9 +9,8 @@ the `bencode` namespace is defined inside `torrebis` here.
 
 The class `bencode::data` is the main type.
 
-Use `data::load(std::string)`, `data::load(const char*, std::size_t size)`,
-`data::load(const char* begin, const char* end)` or `data::load(Iterator begin, Iterator end)` to load data
-from a string / iterable into a `data` instance. Also accepts
+Use `data::load(std::string)`, `data::load(const char*, std::size_t size)`, `data::load(Iterator begin, Iterator end)` or
+`data::load(std::istream&)` to load data from a string / iterable into a `data` instance. Also accepts
 `signed` / `unsigned char`, `std::uint8_t` and `std::int8_t`.
 
 Constructing new values programmatically can be done using the `make_TYPE` static methods.
@@ -47,7 +46,8 @@ Use `std::shared_ptr<T> get<DataTag>()` to get a pointer to a value. It will be 
 but you can safely dereference it if the tag was correct.
 
 ```C++
-bencode::data my_data = bencode::data::load(file_string);
+std::ifstream ifs("test.torrent", std::ios::in | std::ios::binary)
+bencode::data my_data = bencode::data::load(ifs);
 
 // It should be a dict. Can do one of:
 
@@ -55,6 +55,9 @@ bencode::data::dict_ptr_type dp = my_data.get_dict();  // or `my_data.get<bencod
 if (d != nullptr) { bencode::data::dict_type& d = *dp;  /* do stuff with d */ }
 
 // or
+
+std::string s = read_file("test.torrent");
+bencode::data my_data = bencode::data::load(s);
 
 if (my_data.is_dict()) {  // or `my_data.get_tag() == bencode::DataTag::DICT` or `my_data.is<bencode::DataTag::DICT>`.
     bencode::data::dict_type& d = *my_data.get_dict();
